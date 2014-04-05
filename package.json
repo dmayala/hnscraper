@@ -1,5 +1,5 @@
 {
-  "name": "hnscrapper",
+  "name": "hnscraper",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,6 +7,21 @@
   },
   "dependencies": {
     "request": "*",
-    "cheerio": "*"
-  }
+    "cheerio": "*",
+    "express": "3.5.1",
+    "jade": "*"
+  },
+  "description": "A Hacker News scraper exercise using the Cheerio module.",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dmayala/hnscraper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmayala/hnscraper/issues"
+  },
+  "homepage": "https://github.com/dmayala/hnscraper"
 }
