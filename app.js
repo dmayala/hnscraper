@@ -5,7 +5,6 @@
 
 var express = require('express');
 var routes = require('./routes');
-var scrape = require('./routes/scrape');
 var http = require('http');
 var path = require('path');
 
@@ -21,15 +20,27 @@ app.use(express.json());
 app.use(express.urlencoded());
 app.use(express.methodOverride());
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'client')));
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/scrape', scrape.fetch);
+// Handle 404
+app.use(function(req, res) {
+  res.status(404);
+  res.send('404 Error');
+});
+
+// Handle 500
+app.use(function(error, req, res, next) {
+  res.status(500);
+  res.send('500 Error');
+});
+
+// Application routes
+routes(app);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

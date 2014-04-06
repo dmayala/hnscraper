@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  
+  <head>
+    <title>HN Scraper</title>
+    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css">
+  </head>
+  
+  <body>
+    <div class="container" id="content">
+      <table class="table">
+        <thead data-bind="with: headings()[0]">
+          <tr data-bind="createHeaderRow: $data"></tr>  
+        </thead>
+        <tbody data-bind="foreach: headings">
+          <tr data-bind="createTableRow: $data"></tr>
+        </tbody>
+      </table>
+    </div>
+    <script src="js/vendor/jquery/dist/jquery.min.js"></script>
+    <script src="js/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
+    <script>
+      // todo move to external file & remove from global scope
+      function ViewModel() {
+        var self = this;
+        self.headings = ko.observableArray();
+        window.test = self.headings;
+
+        self.fetch = function () {
+          $.get('api/scrape', self.headings);
+        }
+
+        self.fetch();
+      }
+
+      function initHandlers() {
+        ko.bindingHandlers.createHeaderRow = {
+          init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            for (var property in valueAccessor()) {
+              $(element).append('<td>' + property + '</td>');
+            }
+          }
+        };
+
+        ko.bindingHandlers.createTableRow = {
+          init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            for (var property in valueAccessor()) {
+              $(element).append('<td data-bind="text: ' + property + '"></td>');
+            }
+          }
+        };
+      }
+
+      $(function() {
+        initHandlers();
+        ko.applyBindings(new ViewModel());
+      });
+    </script>
+  </body>
+
+</html>

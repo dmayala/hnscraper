@@ -1,0 +1,19 @@
+{
+  "name": "hnscraper",
+  "version": "0.0.1",
+  "homepage": "https://github.com/dmayala/hnscraper",
+  "authors": [
+    "Daniel Ayala <dmayala@csupomona.edu>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1"
+  }
+}

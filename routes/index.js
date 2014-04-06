@@ -1,8 +1,7 @@
+var ScrapeHandler = require('./scrape');
 
-/*
- * GET home page.
- */
+module.exports = exports = function(app){
+  var scrapeHandler = new ScrapeHandler(app);
 
-exports.index = function(req, res){
-  res.render('index', { title: 'Express' });
-};
+  app.get('/api/scrape', scrapeHandler.fetch);
+}
