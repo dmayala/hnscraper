@@ -23,43 +23,7 @@
     <script src="js/vendor/jquery/dist/jquery.min.js"></script>
     <script src="js/vendor/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.1.0/knockout-min.js"></script>
-    <script>
-      // todo move to external file & remove from global scope
-      function ViewModel() {
-        var self = this;
-        self.headings = ko.observableArray();
-        window.test = self.headings;
-
-        self.fetch = function () {
-          $.get('api/scrape', self.headings);
-        }
-
-        self.fetch();
-      }
-
-      function initHandlers() {
-        ko.bindingHandlers.createHeaderRow = {
-          init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            for (var property in valueAccessor()) {
-              $(element).append('<td>' + property + '</td>');
-            }
-          }
-        };
-
-        ko.bindingHandlers.createTableRow = {
-          init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
-            for (var property in valueAccessor()) {
-              $(element).append('<td data-bind="text: ' + property + '"></td>');
-            }
-          }
-        };
-      }
-
-      $(function() {
-        initHandlers();
-        ko.applyBindings(new ViewModel());
-      });
-    </script>
+    <script src="js/application.js"></script>
   </body>
 
 </html>

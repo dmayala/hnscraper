@@ -1,7 +1,6 @@
 var request = require('request');
 var cheerio = require('cheerio');
 
-
 function ScrapeHandler() {
 
   this.fetch = function(req, res, next) {
