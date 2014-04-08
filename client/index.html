@@ -12,8 +12,15 @@
   <body>
     <div class="container" id="content">
       <table class="table">
-        <thead data-bind="with: headings()[0]">
-          <tr data-bind="createHeaderRow: $data"></tr>  
+        <thead>
+          <tr>
+            <th><a href="#" data-bind="click: sortByRank">Rank</a></th>
+            <th><a href="#" data-bind="click: todo">Title</a></th>
+            <th><a href="#" data-bind="click: todo">URL</a></th>
+            <th><a href="#" data-bind="click: todo">Points</a></th>
+            <th><a href="#" data-bind="click: sortByUsername">Username</a></th>
+            <th><a href="#" data-bind="click: todo">Comments</a></th>
+          </tr>
         </thead>
         <tbody data-bind="foreach: headings">
           <tr data-bind="createTableRow: $data"></tr>

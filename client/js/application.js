@@ -36,6 +36,22 @@ App.ViewModels.Articles = function () {
     });
   }
 
+  this.sortByUsername = function () {
+    this.headings.sort(function(a, b) {
+      return a.username().toLowerCase() < b.username().toLowerCase() ? -1 : 1;
+    });
+  };
+
+  this.sortByRank = function () {
+    this.headings.sort(function(a, b) {
+      return a.rank() < b.rank() ? -1 : 1;
+    });
+  }
+
+  this.todo = function () {
+    // does nothing. to do.
+  }
+
   this.init();
 
 }
@@ -45,7 +61,7 @@ App.BindingHandlers.createHeaderRow = function () {
   ko.bindingHandlers.createHeaderRow = {
     init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
       for (var property in valueAccessor()) {
-        $(element).append('<td>' + property + '</td>');
+        $(element).append('<th>' + property + '</th>');
       }
     }
   };
