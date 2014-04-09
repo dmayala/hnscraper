@@ -26,6 +26,7 @@ App.ViewModels.Articles = function () {
 
   // Properties
   this.headings = ko.observableArray();
+  this.keys = ko.observableArray();
 
   // Methods
   this.fetch = function () {
@@ -33,24 +34,22 @@ App.ViewModels.Articles = function () {
       data.forEach(function(i) {
         self.headings.push(new App.Models.Article(i));
       });
+
+      // Copy property names
+      self.keys($.map(self.headings()[0], function (index, key) {
+        return {'sortPropertyName': key};
+      }));
     });
   }
 
-  this.sortByUsername = function () {
-    this.headings.sort(function(a, b) {
-      return a.username().toLowerCase() < b.username().toLowerCase() ? -1 : 1;
+  this.sortOrder = function (key) {
+    var prop = key.sortPropertyName;
+
+    // order ascending 
+    self.headings.sort(function(a, b) { 
+      return a[prop]() < b[prop]() ? -1 : 1;
     });
   };
-
-  this.sortByRank = function () {
-    this.headings.sort(function(a, b) {
-      return a.rank() < b.rank() ? -1 : 1;
-    });
-  }
-
-  this.todo = function () {
-    // does nothing. to do.
-  }
 
   this.init();
 
