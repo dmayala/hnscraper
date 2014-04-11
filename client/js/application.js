@@ -27,6 +27,7 @@ App.ViewModels.Articles = function () {
   // Properties
   this.headings = ko.observableArray();
   this.keys = ko.observableArray();
+  this.activeSort;
 
   // Methods
   this.fetch = function () {
@@ -37,19 +38,21 @@ App.ViewModels.Articles = function () {
 
       // Copy property names
       self.keys($.map(self.headings()[0], function (index, key) {
-        return {'sortPropertyName': key};
+        return {'sortPropertyName': key, 'asc': true};
       }));
+      self.activeSort = self.keys()[0];
     });
   }
 
   this.sortOrder = function (key) {
-    var prop = key.sortPropertyName;
 
-    // order ascending 
-    self.headings.sort(function(a, b) { 
-      return a[prop]() < b[prop]() ? -1 : 1;
-    });
-  };
+    self.activeSort === key ? (key.asc = !key.asc) : (self.activeSort = key); 
+    var prop = self.activeSort.sortPropertyName;
+    var ascSort = function(a,b){ return a[prop]() < b[prop]() ? -1 : a[prop]() > b[prop]() ? 1 : a[prop]() == b[prop]() ? 0 : 0; };
+    var descSort = function(a,b){ return ascSort(b,a); };
+    var sortFunc = self.activeSort.asc ? ascSort : descSort;
+    self.headings.sort(sortFunc);
+  }
 
   this.init();
 
